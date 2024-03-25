@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 const FieldInput = () => {
-    const [inputList, setInputList] = useState([{ question: '', answers: [{ answer: '' }] }]);
-    const [selectedType, setSelectedType] = useState('');
+    const [inputList, setInputList] = useState([{ question: '', selectedType: '', answers: [{ answer: '' }] }]);
 
     const DropdownLinks = [
         {
@@ -24,7 +23,7 @@ const FieldInput = () => {
             type: 'multiple_choice' // Menambahkan properti type
         },
     ];
-    
+
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
         const list = [...inputList];
@@ -52,7 +51,7 @@ const FieldInput = () => {
     };
 
     const handleAddClick = () => {
-        setInputList([...inputList, { question: '', answers: [{ answer: '' }] }]);
+        setInputList([...inputList, { question: '', selectedType: '', answers: [{ answer: '' }] }]);
     };
 
     const handleRemove = index => {
@@ -60,6 +59,19 @@ const FieldInput = () => {
         list.splice(index, 1);
         setInputList(list);
     }
+
+    const handleSubmit = () => {
+        const data = inputList.map(item => ({
+            question: item.question,
+            type: item.selectedType,
+            answers: item.answers.map(answer => answer.answer)
+        }));
+        console.log(data); // Lakukan sesuatu dengan data, misalnya kirim ke server
+    };
+
+    const canSubmit = () => {
+        return inputList.every(item => item.question && item.selectedType && item.answers.length > 0);
+    };
 
     return (
         <div>
@@ -107,21 +119,30 @@ const FieldInput = () => {
                                 {x.answers.map((answer, answerIndex) => (
                                     <div key={answerIndex}>
                                         {x.selectedType === 'text' && (
-                                            <input 
-                                                name='answer' 
-                                                type="text" 
-                                                placeholder="Enter your answer" 
-                                                value={answer.answer}
-                                                onChange={e => handleInputChange(e, i)}
-                                            />
+                                            <>
+                                                <div className=' mt-4 border-dotted border-b-2 border-form text-gray-300'>long paragraph</div>
+                                                <div className=' mt-4 border-dotted border-b-2 border-form text-gray-500'></div>
+                                            </>
                                         )}
-                                        {x.selectedType === 'checkbox' && (
-                                            <input 
-                                                name='answer' 
-                                                type="checkbox" 
-                                                checked={answer.answer}
-                                                onChange={e => handleInputChange(e, i)}
-                                            />
+                                         {x.selectedType === 'checkbox' && (
+                                            <ul className="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg">
+                                                <li className='w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600'>
+                                                    <div className='flex items-center ps-3'>
+                                                    <input 
+                                                        name='answer' 
+                                                        type="checkbox" 
+                                                        checked={answer.answer}
+                                                        onChange={e => handleInputChange(e, i)}
+                                                        className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500'
+                                                    />
+                                                    <label htmlFor="question-checkbox" 
+                                                    className='w-full py-3 ms-2 text-sm font-medium text-gray-900'
+                                                    ></label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                           
                                         )}
                                         {x.selectedType === 'multiple_choice' && (
                                             <input 
@@ -132,27 +153,32 @@ const FieldInput = () => {
                                             />
                                         )}
 
-                                        {x.answers.length > 1 && (
-                                            <button className='bg-red-100 hover:bg-blue-300' onClick={() => handleRemoveAnswer(i, answerIndex)}>Remove</button>
+                                        {(x.selectedType !== 'text') && (
+                                            <div>
+                                                {x.answers.length > 1 && (
+                                                    <button className='bg-red-100 hover:bg-blue-300' onClick={() => handleRemoveAnswer(i, answerIndex)}>Remove</button>
+                                                )}
+                                                {x.answers.length < 5 && (
+                                                    <button className='bg-blue-100 hover:bg-blue-300' onClick={() => handleAddAnswerClick(i)}>Add Answer</button>
+                                                )}
+                                            </div>
                                         )}
-                                       
-                                        
                                     </div>
                                 ))}
-                                  <button className='bg-blue-100 hover:bg-blue-300' onClick={() => handleAddAnswerClick(i)}>Add Answer</button>
-
                             </div>
-                            { inputList.length - 1 === i &&
+                            {inputList.length - 1 === i &&
                                 <button className='bg-blue-100 hover:bg-blue-300' onClick={handleAddClick}>Add</button>
                             }
-                            { inputList.length !== 1 &&
+                            {inputList.length !== 1 &&
                                 <button className='bg-red-100 hover:bg-blue-300' onClick={() => handleRemove(i)}>Remove</button>
                             }
-
                         </div>
                     </div>
                 </div>
             ))}
+            {canSubmit() && (
+                <button className='bg-green-400' onClick={handleSubmit}>Submit</button>
+            )}
         </div>
     );
 };
