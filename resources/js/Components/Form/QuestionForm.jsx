@@ -3,13 +3,7 @@ import FieldInput from '../Question/FieldInput'
 import Field from './Field'
 import QuestionAdd from './QuestionAdd'
 
-const QuestionForm = () => {
-
-    const [orderPopup, setOrderPopup] = React.useState(false);
-
-    const handleOrderPopup = () => {
-      setOrderPopup(!orderPopup);
-    };
+const QuestionForm = ( { uuid } ) => {
 
   return (
     <div>
@@ -30,9 +24,7 @@ const QuestionForm = () => {
                         />
                     </div>
                 </div>
-                <FieldInput />
-                {/* <Field  /> */}
-                <QuestionAdd />
+                <FieldInput uuid = { uuid } />
             </div>
         </div>
     </div>

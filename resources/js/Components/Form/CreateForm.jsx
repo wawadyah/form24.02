@@ -3,7 +3,7 @@ import FormHeader from './FormHeader'
 import QuestionForm from './QuestionForm'
 import Field from './Field'
 
-const CreateForm = () => {
+const CreateForm = (  {uuid} ) => {
  
 
 
@@ -11,7 +11,7 @@ const CreateForm = () => {
     <div>
         <FormHeader />
         
-        <QuestionForm  />
+        <QuestionForm uuid ={ uuid } />
     </div>
   )
 }

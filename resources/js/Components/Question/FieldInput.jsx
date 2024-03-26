@@ -1,34 +1,51 @@
 import React, { useState } from 'react';
+import { router } from '@inertiajs/react'
 
-const FieldInput = () => {
-    const [inputList, setInputList] = useState([{ question: '', answers: [{ answer: '' }] }]);
-    const [selectedType, setSelectedType] = useState('');
+const FieldInput = ( { uuid } ) => {
+    // console.log(uuid);
+    const [inputList, setInputList] = useState([{ question: '', selectedType: '', answers: [{ answer: '', option: '' }] }]);
+    const [localUuid, setLocalUuid] = useState(uuid);
+
+    // useEffect(() => {
+    //     setLocalUuid(uuid);
+    // }, [uuid]);
+
 
     const DropdownLinks = [
         {
             id: 1,
             name: "Field Input",
             link: "/#",
-            type: 'text' // Menambahkan properti type
+            type: 'text'
         },
         {
             id: 2,
             name: "Checkbox",
             link: "/#",
-            type: 'checkbox' // Menambahkan properti type
+            type: 'checkbox'
         },
         {
             id: 3,
             name: "Multiple Choice",
             link: "/#",
-            type: 'multiple_choice' // Menambahkan properti type
+            type: 'multiple_choice'
         },
     ];
     
-    const handleInputChange = (e, index) => {
-        const { name, value } = e.target;
+    const handleInputChange = (e, index, answerIndex) => {
+        const { name, value, type, checked } = e.target;
         const list = [...inputList];
-        list[index][name] = value;
+        
+        if (type === 'checkbox') {
+            list[index].answers[answerIndex].answer = checked;
+        } else if (type === 'radio') {
+            list[index].answers.forEach((answer, i) => {
+                answer.answer = i === answerIndex;
+            });
+        } else {
+            list[index][name] = value;
+        }
+        
         setInputList(list);
     };
 
@@ -41,7 +58,7 @@ const FieldInput = () => {
 
     const handleAddAnswerClick = (index) => {
         const list = [...inputList];
-        list[index].answers.push({ answer: '' });
+        list[index].answers.push({ answer: '', option: '' });
         setInputList(list);
     };
 
@@ -51,8 +68,15 @@ const FieldInput = () => {
         setInputList(list);
     };
 
+    const handleOptionChange = (e, index, answerIndex) => {
+        const { value } = e.target;
+        const list = [...inputList];
+        list[index].answers[answerIndex].option = value;
+        setInputList(list);
+    };
+
     const handleAddClick = () => {
-        setInputList([...inputList, { question: '', answers: [{ answer: '' }] }]);
+        setInputList([...inputList, { question: '', selectedType: '', answers: [{ answer: '' }] }]);
     };
 
     const handleRemove = index => {
@@ -61,8 +85,22 @@ const FieldInput = () => {
         setInputList(list);
     }
 
+    const handleSubmit = () => {
+        const data = inputList.map(item => ({     
+            question: item.question,
+            type: item.selectedType,
+            answers: item.answers.map(answer => ({ answer: answer.answer, option: answer.option }))
+        }));
+        console.log(data);
+    };
+
+    const saveData = (e) => {
+        e.preventDefault();
+        router.post('/save', { inputList, localUuid }); 
+    }
+
     return (
-        <div>
+        <form onSubmit={saveData}>
             {inputList.map((x, i) => (
                 <div className='mt-4' key={i}>
                     <div className='title'>
@@ -73,7 +111,8 @@ const FieldInput = () => {
                                         type="text"
                                         id={`question-${i}`}
                                         name="question"
-                                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none 
+                                        focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" "
                                         value={x.question}
                                         onChange={e => handleInputChange(e, i)}
@@ -107,54 +146,72 @@ const FieldInput = () => {
                                 {x.answers.map((answer, answerIndex) => (
                                     <div key={answerIndex}>
                                         {x.selectedType === 'text' && (
-                                            <input 
-                                                name='answer' 
-                                                type="text" 
-                                                placeholder="Enter your answer" 
-                                                value={answer.answer}
-                                                onChange={e => handleInputChange(e, i)}
-                                            />
+                                            <>
+                                                <div className=' mt-4 border-dotted border-b-2 border-form text-gray-300'>long paragraph</div>
+                                                <div className=' mt-4 border-dotted border-b-2 border-form text-gray-500'></div>
+                                            </>
                                         )}
                                         {x.selectedType === 'checkbox' && (
-                                            <input 
-                                                name='answer' 
-                                                type="checkbox" 
-                                                checked={answer.answer}
-                                                onChange={e => handleInputChange(e, i)}
-                                            />
+                                            <>
+                                                <input 
+                                                    name='answer' 
+                                                    type="checkbox" 
+                                                    checked={answer.answer}
+                                                    onChange={e => handleInputChange(e, i, answerIndex)}
+                                                />
+                                                <input 
+                                                    type="text" 
+                                                    name={`option-${i}-${answerIndex}`} // Menambahkan name yang unik untuk setiap option
+                                                    value={answer.option}
+                                                    onChange={e => handleOptionChange(e, i, answerIndex)} // Mengubah input option
+                                                />
+                                            </>
                                         )}
                                         {x.selectedType === 'multiple_choice' && (
-                                            <input 
-                                                name='answer' 
-                                                type="radio" 
-                                                checked={answer.answer}
-                                                onChange={e => handleInputChange(e, i)}
-                                            />
+                                            <>
+                                                <input 
+                                                    name='answer' 
+                                                    type="radio" 
+                                                    checked={answer.answer}
+                                                    onChange={e => handleInputChange(e, i, answerIndex)}
+                                                />
+                                                <input 
+                                                    type="text" 
+                                                    name={`option-${i}-${answerIndex}`} // Menambahkan name yang unik untuk setiap option
+                                                    value={answer.option}
+                                                    onChange={e => handleOptionChange(e, i, answerIndex)} // Mengubah input option
+                                                />
+                                            </>
                                         )}
 
-                                        {x.answers.length > 1 && (
-                                            <button className='bg-red-100 hover:bg-blue-300' onClick={() => handleRemoveAnswer(i, answerIndex)}>Remove</button>
+                                        {(x.selectedType !== 'text') && (
+                                            <div>
+                                                {x.answers.length > 1 && (
+                                                    <button className='bg-red-100 hover:bg-blue-300' onClick={() => handleRemoveAnswer(i, answerIndex)}>Remove</button>
+                                                )}
+                                                {x.answers.length < 5 && (
+                                                    <button className='bg-blue-100 hover:bg-blue-300' onClick={() => handleAddAnswerClick(i)}>Add Answer</button>
+                                                )}
+                                            </div>
                                         )}
-                                       
-                                        
                                     </div>
                                 ))}
-                                  <button className='bg-blue-100 hover:bg-blue-300' onClick={() => handleAddAnswerClick(i)}>Add Answer</button>
-
                             </div>
-                            { inputList.length - 1 === i &&
+                            {inputList.length - 1 === i &&
                                 <button className='bg-blue-100 hover:bg-blue-300' onClick={handleAddClick}>Add</button>
                             }
-                            { inputList.length !== 1 &&
+                            {inputList.length !== 1 &&
                                 <button className='bg-red-100 hover:bg-blue-300' onClick={() => handleRemove(i)}>Remove</button>
                             }
-
                         </div>
                     </div>
                 </div>
             ))}
-        </div>
-    );
+            <button className='bg-green-400 hover:bg-blue-500'  >Submit</button>
+
+</form>
+);
 };
 
 export default FieldInput;
+
