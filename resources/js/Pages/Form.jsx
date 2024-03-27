@@ -2,10 +2,10 @@ import CreateForm from '@/Components/Form/CreateForm'
 import React from 'react'
 
 
-const Form = () => {
+const Form = ({ uuid }) => {
   return (
     <div>
-        <CreateForm />        
+        <CreateForm uuid = { uuid }/>        
     </div>
   )
 }

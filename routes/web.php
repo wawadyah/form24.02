@@ -26,9 +26,9 @@ use App\Http\Controllers\ProfileController;
 //     ]);
 // });
 
-Route::get('/', [FormController::class, 'index']);
+Route::get('/', [FormController::class, 'index'])->name('Dash');
 Route::get('/form/{uuid}', [FormController::class, 'create']);
-
+Route::post('/save', [FormController::class, 'save']);
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
