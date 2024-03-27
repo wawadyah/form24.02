@@ -3,7 +3,7 @@ import FieldInput from '../Question/FieldInput'
 import Field from './Field'
 import QuestionAdd from './QuestionAdd'
 
-const QuestionForm = ( { uuid } ) => {
+const QuestionForm = ( { uuid, setLocalUuid, setInputList, handleAddClick } ) => {
 
   return (
     <div>
@@ -24,7 +24,7 @@ const QuestionForm = ( { uuid } ) => {
                         />
                     </div>
                 </div>
-                <FieldInput uuid = { uuid } />
+                <FieldInput handleAddClick={ handleAddClick } uuid = { uuid } setLocalUuid={setLocalUuid} setInputList={ setInputList } />
             </div>
         </div>
     </div>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { router } from '@inertiajs/react'
 
-const FieldInput = ( { uuid } ) => {
+const FieldInput = ( { uuid, setInputList, setLocalUuid, handleAddClick } ) => {
     // console.log(uuid);
-    const [inputList, setInputList] = useState([{ question: '', selectedType: '', answers: [{ answer: '', option: '' }] }]);
-    const [localUuid, setLocalUuid] = useState(uuid);
+    // const [inputList, setInputList] = useState([{ question: '', selectedType: '', answers: [{ answer: '', option: '' }] }]);
+    // const [localUuid, setLocalUuid] = useState(uuid);
 
     // useEffect(() => {
     //     setLocalUuid(uuid);
@@ -75,9 +75,9 @@ const FieldInput = ( { uuid } ) => {
         setInputList(list);
     };
 
-    const handleAddClick = () => {
-        setInputList([...inputList, { question: '', selectedType: '', answers: [{ answer: '' }] }]);
-    };
+    // const handleAddClick = () => {
+    //     setInputList([...inputList, { question: '', selectedType: '', answers: [{ answer: '' }] }]);
+    // };
 
     const handleRemove = index => {
         const list = [...inputList];

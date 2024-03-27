@@ -9,9 +9,9 @@ const CreateForm = (  {uuid} ) => {
 
   return (
     <div>
-        <FormHeader />
+        <FormHeader uuid ={ uuid } />
         
-        <QuestionForm uuid ={ uuid } />
+        {/* <QuestionForm uuid ={ uuid } /> */}
     </div>
   )
 }
