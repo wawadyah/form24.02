@@ -19,7 +19,7 @@ export default {
                 primary: '#627254',
                 secondary: '#76885B',
                 text: '#DDDDDD',
-                text2: '#EEEEEE'
+                text2: '#EEEEEE',
             },
         },
     },

@@ -3,14 +3,14 @@ import profile from '../../../../public/images/killua.png'
 
 const Header = () => {
 return(
-    <div className="bg-blue-100 p-2 flex flex-wrap gap-4">
+    <div className="bg-text2 pt-4 px-2 pb-8 shadow-md flex flex-wrap gap-4">
         <div className="rightSection bg-red-100 basis-1/5 flex items-center">
             <IoMenu className="text-[35px] mr-4" />
             <span className="text-gray-500 font-semi text-[20px]">Formulir</span>
         </div>
 
-        <div className="middleSection basis-7/12 relative text-gray-500 shrink min-w-54">
-            <input type="text" className="bg-gray-100 border-none rounded-md w-full p-2 pl-10" placeholder="Telusuri" />
+        <div className="middleSection basis-7/12 relative text-gray-500 shrink min-w-54 ">
+            <input type="text" className="bg-gray-100 border-none rounded-md w-full p-2 pl-10 focus:border-none focus:outline-none" placeholder="Telusuri" />
             < IoSearch className="absolute top-1/2 left-2 transform -translate-y-1/2 text-[20px]"/>
         </div>
 

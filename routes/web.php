@@ -1,10 +1,13 @@
 <?php
 
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResponseController;
+use App\Http\Controllers\AuthenticationController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +29,17 @@ use App\Http\Controllers\ProfileController;
 //     ]);
 // });
 
+Route::get('/loginn', [AuthenticationController::class, 'index']);
+
 Route::get('/', [FormController::class, 'index'])->name('Dash');
 Route::get('/form/{uuid}', [FormController::class, 'create']);
 Route::post('/save', [FormController::class, 'save']);
+
+
+Route::get('/form/a/{uuid}',[ResponseController::class, 'field']);
+Route::get('/form/a/{uuid}#response',[ResponseController::class, 'response']);
+Route::post('/store', [ResponseController::class, 'store']);
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

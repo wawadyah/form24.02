@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.addButton{
+    display: none;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    cursor: pointer;
+}
+
+.addPage{
+    opacity: 0;
+    display: none;
+}
+
+.addButton:hover .addPage{
+    display: block;
+    opacity: 1;
+}
+
+.formTop:hover .addButton {
+    display: block;
+    opacity: 1;
+}
+
+.outer #form{
+    width: 200%;
+    position: relative;
+    display: flex;
+    margin: auto;
+    transition: 0.2s ease-in-out;
+}
+ /* .active{
+    border-bottom: 1px solid blue;
+} */
+
+
+.switch.active::after{
+    margin-left: 50%;
+    width: 50%;
+    background-color: green;
+}  
+
+#page{
+    margin: auto;
+    width: 200%;
+}

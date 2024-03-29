@@ -61,8 +61,7 @@ const FormHeader = ( { uuid } ) => {
             </div>
         </div>
 
-        <QuestionForm setInputList={ setInputList } setLocalUuid={ setLocalUuid } 
-        handleAddClick={ handleAddClick } />
+        
     </div>
   )
 }

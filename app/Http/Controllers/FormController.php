@@ -11,7 +11,8 @@ class FormController extends Controller
 {
     public function index(){
         $uuid = Uuid::uuid4()->toString();
-        return Inertia::render('Dash', ['uuid' => $uuid]);
+        $form = Form::all();
+        return Inertia::render('Dash', ['uuid' => $uuid, 'forms' => $form]);
     }
 
     public function create($uuid){
@@ -24,11 +25,15 @@ class FormController extends Controller
         $form = new Form();
         $data = array(
         'uuid' => $request->input('localUuid'), 
-        'question' => json_encode($request->input('inputList'))
+        'question' => json_encode($request->input('inputList')),
+        'title' => $request->input('title'),
+        'desc' => $request->input('desc'),
         );
         $form->create($data);
 
         return redirect()->route('Dash');
 
     }
+
+   
 }
