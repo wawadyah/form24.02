@@ -95,7 +95,7 @@ const Response = ({props}) => {
             <div>
                 <div className='questionForm bg-[#F4f4f9] h-full pb-[30px]'>
                     <br />
-                    <div className='section m-auto w-1/2'>
+                    <div className=''>
                         <div >
                             <div className='title'>
                                 <div className='formTop mb-4 bg-white border-t-8 border-form rounded-lg py-[20px] px-[25px]'>

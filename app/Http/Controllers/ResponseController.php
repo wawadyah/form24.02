@@ -13,8 +13,10 @@ class ResponseController extends Controller
 {
     public function field($uuid){
         $form = Form::where('uuid', $uuid)->first();
+        $soal = $form->id;
         $form->question = json_decode($form->question, true);
-        return Inertia::render('FormTest', ['form' => $form]);
+        $id = Response::where('form_id', $soal)->get();
+        return Inertia::render('FormTest', ['form' => $form, 'soal' => $id]);
     }
 
     public function store( Request $request){
@@ -29,8 +31,8 @@ class ResponseController extends Controller
         return redirect()->route('Dash');
     }
 
-    public function response(){
-        $response = Response::all();
-        return Inertia::render('FormResponse', ['responses' => $response]);
-    }
+    // public function response(){
+    //     $response = Response::all();
+    //     return Inertia::render('FormResponse', ['responses' => $response]);
+    // }
 }
