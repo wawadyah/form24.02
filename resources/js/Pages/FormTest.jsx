@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { router } from '@inertiajs/react'
 import TestHeader from '@/Components/Question/TestHeader';
 import Response from '@/Components/Response/Response';
+import ChartResponse from '@/Components/Response/ChartResponse';
+import Chart from '@/Components/Response/Chart2';
 
 
 const FormTest = (props) => {
@@ -91,10 +93,16 @@ const FormTest = (props) => {
     };
 
     return (
-        <>
-            <TestHeader props={props} />
+        <div className='h-full bg-[#F4f4f9] pb-[30px]'>
+             <TestHeader props={props} />
+            <div className='section m-auto w-1/2'>
+           
             <Response props={props} />
-        </>
+            {/* <ChartResponse props={props} /> */}
+            <Chart props={props} />
+            </div>
+           
+        </div>
     );
 };
 

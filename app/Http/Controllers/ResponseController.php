@@ -13,8 +13,10 @@ class ResponseController extends Controller
 {
     public function field($uuid){
         $form = Form::where('uuid', $uuid)->first();
+        $id = $form->id;
+        $soal = Response::where('form_id', $id)->get();
         $form->question = json_decode($form->question, true);
-        return Inertia::render('FormTest', ['form' => $form]);
+        return Inertia::render('FormTest', ['form' => $form, 'answers' => $soal]);
     }
 
     public function store( Request $request){

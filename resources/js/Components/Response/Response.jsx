@@ -7,7 +7,7 @@ const Response = ({props}) => {
     const questions = props.form.question;
     const [answers, setAnswers] = useState({});
     const form_id = props.form.id;
-    console.log(props)
+    console.log( 'ini dri response',props)
 
     const renderInput = (type, options, questionIndex) => {
         switch (type) {
@@ -93,13 +93,13 @@ const Response = ({props}) => {
   return (
     <>
             <div>
-                <div className='questionForm bg-[#F4f4f9] h-full pb-[30px]'>
+                <div className='questionForm '>
                     <br />
-                    <div className='section m-auto w-1/2'>
+                    <div className=''>
                         <div >
                             <div className='title'>
                                 <div className='formTop mb-4 bg-white border-t-8 border-form rounded-lg py-[20px] px-[25px]'>
-                                    <p className="questionTopName box-border text-[32px] font-medium leading-[40px] w-full border-none outline-none text-black h-[35px] placeholder-gray-400">{props.form.title}</p>
+                                    <p className="questionTopName box-border text-[32px] font-semibold leading-[40px] w-full border-none outline-none text-black h-[35px] placeholder-gray-400">{props.form.title}</p>
                                     <p className='questionTopdesc box-border mt-5 text-[13px] leading-[40px] w-full border-none outline-none border-b border-[#F4F4F9] h-10'>{props.form.desc}</p>
                                 </div>
                                 {questions.map((question, questionIndex) => (
