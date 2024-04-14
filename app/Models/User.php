@@ -17,6 +17,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+     protected $table = 'users';
+
     protected $fillable = [
         'name',
         'email',
@@ -32,6 +35,12 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected $attributes = [
+        'role_id' => 2,
+        'status' => 'inactive',
+    ];
+
 
     /**
      * The attributes that should be cast.

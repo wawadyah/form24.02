@@ -1,0 +1,29 @@
+.switch:hover .slider:after{
+    display: block;
+}
+
+
+.slider:before{
+    position: absolute;
+    content: '';
+    height: 15px;
+    width: 15px;
+    left: 6px;
+    bottom: 2px;
+}
+
+.slider:after{
+
+    content: 'required';
+   
+    
+}
+
+.tombol:checked + .slider:before {
+    transform: translateX(24px);
+    background-color: rgb(143, 0, 0);
+}
+
+.tombol:checked + .slider{
+    background-color: rgb(255, 105, 105);
+}

@@ -8,7 +8,7 @@ import FormResponse from '@/Pages/FormResponse';
 
 
 
-const TestHeader = ( { props } ) => {
+const TestHeader = ( { props, submit } ) => {
     const uuid = props.form.uuid;
     console.log('ini dari header',uuid)
     const [responses, setResponses] = useState([]);
@@ -61,7 +61,7 @@ const TestHeader = ( { props } ) => {
                          <FaEye />
                     </div>
                     <div>
-                        <button className='bg-primary rounded-md px-6 py-2 text-[15px] text-white text-semibold'>Kirim</button>
+                        <button className='bg-primary rounded-md px-6 py-2 text-[15px] text-white text-semibold' onClick={submit}>Submit</button>
                     </div>
                     <div className='hover:bg-gray-100 p-4 rounded-full'>
                         <BsThreeDotsVertical className='text-[20px] ' />

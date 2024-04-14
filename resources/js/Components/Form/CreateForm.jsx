@@ -9,11 +9,7 @@ const CreateForm = (  {uuid} ) => {
 
 
   return (
-    <div>
-        <FormHeader uuid ={ uuid } />
-        
-        <QuestionForm uuid ={ uuid } />
-    </div>
+    <></>
   )
 }
 

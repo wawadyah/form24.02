@@ -29,7 +29,9 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/loginn', [AuthenticationController::class, 'index']);
+Route::get('/reg', [AuthenticationController::class, 'index'])->name('loginn');
+Route::post('/saving', [AuthenticationController::class, 'store']);
+Route::post('/store-auth', [AuthenticationController::class, 'authenticate']);
 
 Route::get('/', [FormController::class, 'index'])->name('Dash');
 Route::get('/form/{uuid}', [FormController::class, 'create']);

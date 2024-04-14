@@ -7,29 +7,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import QuestionForm from './QuestionForm';
 import { router } from '@inertiajs/react'
 
-const FormHeader = ( { uuid } ) => {
-
-    const [inputList, setInputList] = useState([{ question: '', selectedType: '', answers: [{ answer: '', option: '' }] }]);
-    const [localUuid, setLocalUuid] = useState(uuid);
-
-    const handleAddClick = () => {
-        setInputList([...inputList, { question: '', selectedType: '', answers: [{ answer: '' }] }]);
-    };
-
-    const handleSubmit = () => {
-        const data = inputList.map(item => ({     
-            question: item.question,
-            type: item.selectedType,
-            answers: item.answers.map(answer => ({ answer: answer.answer, option: answer.option }))
-        }));
-        // console.log(data);
-        router.post('/save', { inputList, localUuid }); 
-    };
-
-    const saveData = (e) => {
-        e.preventDefault();
-        router.post('/save', { inputList, localUuid }); 
-    }
+const FormHeader = ( { uuid, saveData } ) => {
 
   return (
     <div>
@@ -49,7 +27,7 @@ const FormHeader = ( { uuid } ) => {
                          <FaEye />
                     </div>
                     <div>
-                        <button onClick={handleSubmit} className='bg-primary rounded-md px-6 py-2 text-[15px] text-white text-semibold'>Kirim</button>
+                        <button onClick={saveData} className='bg-primary rounded-md px-6 py-2 text-[15px] text-white text-semibold'>Submit</button>
                     </div>
                     <div className='hover:bg-gray-100 p-4 rounded-full'>
                         <BsThreeDotsVertical className='text-[20px] ' />

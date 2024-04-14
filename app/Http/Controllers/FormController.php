@@ -25,7 +25,7 @@ class FormController extends Controller
         $form = new Form();
         $data = array(
         'uuid' => $request->input('localUuid'), 
-        'question' => json_encode($request->input('inputList')),
+        'question' => json_encode($request->input('questions')),
         'title' => $request->input('title'),
         'desc' => $request->input('desc'),
         );

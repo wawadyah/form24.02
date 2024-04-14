@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('responses', function (Blueprint $table) {
             $table->char('answer')->after('id');
-            $table->unsignedBigInteger('form_id')->after('id');;
-            $table->foreign('form_id')->references('id')->on('forms')->after('id');;
+            $table->unsignedBigInteger('form_id')->after('id');
+            $table->foreign('form_id')->references('id')->on('forms')->after('id');
             
            
         });
