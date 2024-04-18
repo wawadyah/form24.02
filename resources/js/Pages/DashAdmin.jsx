@@ -28,7 +28,7 @@ const DashAdmin = (props) => {
     <div className='bg-slate-100 min-h-screen'>
         <SideBar sidebar={sidebar} setSidebar={setSidebar} />
       <Header sidebar={sidebar} setSidebar={setSidebar} />
-      <div className='px-32 mt-20'>
+      <div className='md:px-32 md:mt-20 px-10 py-4 mt-5'>
         <FormInfo props={props} />
         <FormDesc form={props.form} formResponses={props.formResponses} loading={isLoading} />
       </div>

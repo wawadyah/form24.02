@@ -10,7 +10,6 @@ const LoginSection = () => {
   const saveData = (e) => {
     e.preventDefault();
     router.post('/store-auth', { name, password }); 
-    reload();
   }
   return (
     <div className='px-14 w-[50%]'>

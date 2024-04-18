@@ -25,7 +25,7 @@ class AuthenticationController extends Controller
     $validatedData['password'] = Hash::make($request->input('password'));
     User::create($validatedData);
 
-    return to_route('loginn')->with('success', 'User successfully added!!');
+    return redirect()->back()->with('success', 'User successfully added!!');
     }
 
     public function authenticate(Request $request)
@@ -66,28 +66,27 @@ class AuthenticationController extends Controller
 
     public function showUser(){
         $user = User::where('role_id', 2)->where('status', 'active')->get();
-        return Inertia::render("");
+        $new = User::where('role_id', 2)->where('status', 'inactive')->get();
+        return Inertia::render("User", ['user' => $user, 'new' => $new]);
     }
 
     public function newUser(){
         $user = User::where('role_id', 2)->where('status', 'inactive')->get();
-        return Inertia::render('');
+        return Inertia::render('User');
     }
     
-    public function approve($id){
-        $user = User::where('id', $id)->first();
+    public function approve($slug){
+        $user = User::where('slug', $slug)->first();
         $user['status'] = 'active';
         $user->save();
 
         return redirect()->back();
     }
     
-    public function destroy($id){
-        $user = User::where('id', $id)->first();
+    public function destroy($slug){
+        $user = User::where('name', $slug)->first();
         $user->delete();
-        return redirect('')->back();
+        return redirect()->back();
     }
-
-
-
+    
 }

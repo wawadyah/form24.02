@@ -37,7 +37,7 @@ const FormDesc = ({ form, formResponses }) => {
         <>
             
             <div className='font-bold text-2xl text-center mb-2'>Make your form</div>
-            <div className='gap-3 w-full pb-20 pt-4 px-2 bg-blue-100 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
+            <div className='gap-3 w-full pb-20 pt-4 md:px-2 px-10 min-w-96 bg-blue-100 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {form.map((data, index) => {
                     const updatedAt = new Date(data.updated_at);
                     const formattedDate = format(updatedAt, 'dd-MM-yyyy');
@@ -47,7 +47,7 @@ const FormDesc = ({ form, formResponses }) => {
                     const responseCount = formResponses[data.id] || 0;
 
                     return (
-                        <div key={index} className='relative bg-gray-100 p-2 rounded-md h-fit shadow-md '>
+                        <div key={index} className='relative bg-gray-100 min-w-52 p-2 rounded-md h-fit shadow-md '>
                             { deleteForm === index && (
                                 <DeletePage destroy={() => handleDeleteform(index)} i={index} data={data.id}/>
                             )}
@@ -67,7 +67,7 @@ const FormDesc = ({ form, formResponses }) => {
                                         items-center cursor-pointer rounded-full w-fit`} onClick={() => handleOpen(index)}>
                                         <BsThreeDotsVertical className='text-end text-lg ' />
                                         {open === index && (
-                                            <span className='absolute bg-slate-200 top-1/2 left-1/2 rounded-lg shadow-inner'>
+                                            <span className='absolute bg-slate-200 top-1/2 left-1/2 rounded-lg shadow-inner z-50'>
                                             <Link className='flex items-center gap-2 px-4 rounded-t-lg hover:bg-slate-400' 
                                             href={'/form/e/' + data.uuid} onClick={() => handleLinkClick(index)} ><MdEdit /> edit</Link>
                                             <p className='flex items-center gap-2 px-4 rounded-b-lg hover:bg-slate-400' onClick={() => handleDeleteform(index)} > 
@@ -76,7 +76,7 @@ const FormDesc = ({ form, formResponses }) => {
                                             </span>
                                         )}
                                     </div>
-                                    <p className='text-end text-red-600'>{timeDistanceToNow}</p>
+                                    <p className='text-end text-sm text-red-600'>{timeDistanceToNow}</p>
                                 </div>
                             </div>
                             {loading === index && (

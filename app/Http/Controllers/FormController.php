@@ -66,6 +66,8 @@ class FormController extends Controller
         $form = Form::where('id', $request->input('form_id'))->first();
         $data = array(
             'question' => json_encode($request->input('questions')),
+            'title' => $request->input('title'),
+            'desc' => $request->input('desc'),
         );
         $form->update($data);
         return redirect()->route('admin');

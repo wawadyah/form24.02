@@ -9,14 +9,19 @@ import {
     Legend,
 } from 'chart.js';
 import FormTimer from './FormTimer';
+import { useState } from 'react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Chart2 = ({ props, submit }) => {
     const questions = props.form.question;
+    const [role, setRole] = useState('anonymous')
+    const switchRole = (role) => {
+        setRole(view);
+    };
 
     return (
-        <div className=' sm:px-20 md:px-80 px-10'>
+        <div className=' '>
             <FormTimer />
             {questions.map((question, index) => {
 

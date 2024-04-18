@@ -2,12 +2,19 @@ import Header from '@/Components/Form/Header'
 import React from 'react'
 import { format, formatDistanceToNow } from 'date-fns';
 import { Link } from '@inertiajs/react';
+import SideBar from '@/Components/Form/SideBar';
+import { Head } from '@inertiajs/react'
 
 const FormDeleted = (props) => {
     console.log(props)
+    const [sidebar, setSidebar] = useState(false);
   return (
     <div className='bg-slate-100 min-h-screen'>
-        <Header />
+        <Head>
+            <title>Form | Deleted</title>
+        </Head>
+        <Header sidebar={sidebar} setSidebar={setSidebar}/>
+        <SideBar sidebar={sidebar} setSidebar={setSidebar} />
         <div className='fixed inset-x-0 inset-y-0 flex items-center justify-center py-32 px-40'>
             <div className='bg-white shadow-md rounded-xl p-8 w-full h-full'>
                 <div className="relative shadow-sm sm:rounded-lg">

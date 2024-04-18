@@ -4,19 +4,23 @@ import { ImParagraphJustify } from 'react-icons/im';
 import { IoMdRadioButtonOn } from 'react-icons/io';
 import { IoIosCheckboxOutline } from 'react-icons/io';
 import { TbPhoto } from "react-icons/tb";
-
 import Chart from '@/Components/Response/Chart2'
 import format from 'date-fns/format';
 import FormHeader from '@/Components/Form/FormHeader';
 import ResponsesEdit from '@/Components/Admin/ResponsesEdit';
+import FormTitle from '@/Components/Admin/FormTitle';
 
 const FormEdit = (props, {uuid}) => {
     const [answers, setAnswers] = useState({});
     const [submitDate, setDate] = useState();
     const form_id = props.form.id;
-    const quest = props.form.question 
+    const quest = props.form.question;
+    const [access, setAccess] = useState(null);
 
     // console.log(props.form.question)
+    const handleAccessChange = (role) => {
+        setAccess(role)
+    }
 
     const [questions, setQuestions] = useState(quest || [
         {
@@ -34,9 +38,16 @@ const FormEdit = (props, {uuid}) => {
         { value: 'checkbox', label: 'Checkbox', icon: <IoIosCheckboxOutline /> },
         { value: 'image', label: 'Image', icon: <TbPhoto /> }
     ]);
-    const localUuid = uuid;
-    const [title, setTitle]= useState('');
-    const [desc, setDesc] = useState('');
+    const [title, setTitle] = useState(props.form.title);
+    const [desc, setDesc] = useState(props.form.desc);
+
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value);
+    };
+
+    const handleDescChange = (e) => {
+        setDesc(e.target.value);
+    };
 
     const handleAddClick = () => {
         setQuestions([...questions, {
@@ -46,14 +57,6 @@ const FormEdit = (props, {uuid}) => {
             required: false,
         }]);
     };
-
-        const handleQuestionChange = (e, questionIndex) => {
-            const { value } = e.target;
-            const updatedQuestions = [...questions];
-            updatedQuestions[questionIndex].question = value;
-            setQuestions(updatedQuestions);
-        };
-
 
     const handleRemove = (index) => {
         const list = [...questions];
@@ -81,15 +84,12 @@ const FormEdit = (props, {uuid}) => {
         list[index].selectedType = option.value;
         setQuestions(list);
     };
-
-    // Menambah opsi jawaban
     const handleAddAnswerClick = (index) => {
         const list = [...questions];
         list[index].answers.push({ option: '' });
         setQuestions(list);
     };
 
-    // Menghapus opsi jawaban
     const handleRemoveAnswer = (questionIndex, answerIndex) => {
         const list = [...questions];
         list[questionIndex].answers.splice(answerIndex, 1);
@@ -103,12 +103,6 @@ const FormEdit = (props, {uuid}) => {
         setQuestions(list);
     };
     
-    // const handleOptionChange = (e, questionIndex, optionIndex) => {
-        //     const { value } = e.target;
-        //     const updatedQuestions = [...questions];
-        //     updatedQuestions[questionIndex].answers[optionIndex].option = value;
-        //     setQuestions(updatedQuestions);
-        // };
 
     const handleRequiredChange = (index) => {
         const list = [...questions];
@@ -141,14 +135,16 @@ const FormEdit = (props, {uuid}) => {
             currentDate
         }));
 
-        router.post('/update', {questions, form_id});
-        // console.log(questions, submitDate, form_id)
+        router.post('/update', {questions, form_id, title, desc});
+        // console.log(questions, form_id, title, desc)
     };
   return (
     <div className='h-full bg-[#F4f4f9] pb-[30px]  '>
     <FormHeader props={props} view={ switchView } activeView={ activeView } submit={handleSubmit}  />
 
-       <div className='mt-4 '>   
+       <div className='mt-4  px-44'>   
+       <FormTitle title={title} handleTitleChange={handleTitleChange} 
+            desc={desc} handleDescChange={handleDescChange} />
             {activeView === 'response' && questions.map((question, index) => (
                 <ResponsesEdit props={props} setAnswers={setAnswers} submit={handleSubmit} 
                 key={index}
@@ -166,12 +162,12 @@ const FormEdit = (props, {uuid}) => {
                 DropdownLinks={DropdownLinks}
             />
         ))}
-
-           {activeView === 'chart' && (
-               <Chart props={props} submit={handleSubmit} />
+            {activeView === 'chart' && (
+               <Chart props={props} submit={handleSubmit} accessChange={()=>handleAccessChange(role)} access={access} />
            )}
+           
        </div>
-       
+           
 </div>
   )
 }

@@ -24,7 +24,7 @@ const ResponseEdit = ({
 // console.log( 'ini question data',questionData)
     
 return (
-    <div className='question mb-4 sm:px-20 md:px-80 px-10'>
+    <div className='question mb-4 '>
     <div className='group relative formTop bg-white  border-t-8 border-form rounded-lg pt-[20px] px-[25px] pb-[5px] hover:transition-all hover:duration-800 hover:ease-in-out hover:pb-[10px]'>
       <div className='flex gap-2'>
         <div className="relative z-0 basis-2/3">
@@ -60,8 +60,6 @@ return (
           />
         </div>
       </div>
-      
-      {/* Bagian yang menangani opsi jawabannya */}
       {questionData && questionData.answers && questionData.answers.map((answer, answerIndex) => (
          <div key={answerIndex}>
          {questionData.selectedType === 'text' && (
