@@ -1,5 +1,6 @@
 export default function InputError({ error }) {
     console.log('ini dari input', error)
+    
     return  (
         <div id="alert-1" className="flex items-center p-4 m-4 text-red-800 rounded-lg bg-red-50 " role="alert">
             <svg className="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

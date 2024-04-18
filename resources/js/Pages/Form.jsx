@@ -97,12 +97,27 @@ const Form = ({ uuid }) => {
     const saveData = (e) => {
       e.preventDefault();
       router.post('/save', { questions, localUuid ,title, desc }); 
+    //   console.log(questions, localUuid, title, desc)
   }
+
+  const [activeView, setActiveView] = useState('response');
+
+  const switchView = (view) => {
+      setActiveView(view);
+
+
+      if (view === 'chart') {
+          window.location.hash = '#response';
+      } else {
+          window.location.hash = '';
+      }
+
+  };
 
   return (
     <div>
-        <FormHeader uuid ={ uuid } saveData={saveData                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                } />
-        <div className='questionForm bg-[#F4f4f9] h-full pb-[30px]'>
+        <FormHeader uuid ={ uuid } submit={saveData} view={ switchView } activeView={activeView}  />
+        <div className='questionForm bg-[#F4f4f9] min-h-screen pb-[30px]'>
             <br></br>
         <div className='section m-auto w-1/2'>
 

@@ -74,7 +74,6 @@ const Login = ({success, errors, messages}) => {
                 after:-bottom-[2px] after:left-0 after:rounded-t-md after:ease-in-out transition duration-300 '>
                     <div className='login cursor-pointer' onClick={tab1}>Login</div>
                     <div className='signup cursor-pointer' onClick={tab2}>SignUp</div>
-                    
                 </div>
                 
                 <div id='form' className=' h-full grid grid-cols-1 pt-4'>

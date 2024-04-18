@@ -28,40 +28,66 @@ class AuthenticationController extends Controller
     return to_route('loginn')->with('success', 'User successfully added!!');
     }
 
-    public function authenticate(Request $request){
-
-        // $request->authenticate();
-        // $request->session()->regenerate();
-
+    public function authenticate(Request $request)
+    {
         $credentials = $request->validate([
             'name' => ['required'],
             'password' => ['required'],
         ]);
-
-        if(Auth::attempt($credentials)){
-
-            if(Auth::user()->status != 'active'){
+    
+        if (Auth::attempt($credentials)) {
+            if (Auth::user()->status != 'active') {
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
-
-                // Session::flash('status', 'failed');
-                // Session::flash('message', 'Your acoount is not active yet, please contact admin');
-                
-                return to_route('loginn')->with('messages','Your acoount is not active yet, please contact admin');
-            } 
-
-            if(Auth::user()->role_id == 1){
-                $request->session()->regenerate();
-                return to_route('Dash');
-            } else{
-                $request->session()->regenerate();
-                return to_route('Dash');
+    
+                return to_route('loginn')->with('messages', 'Your account is not active yet, please contact admin');
             }
-        } else{
-            return to_route('loginn')->with('messages', 'Account have not registered');
+    
+            $request->session()->regenerate();
+            $authData = Auth::user()->name;
+            if (Auth::user()->role_id == 1) {
+                return to_route('admin');
+            } else {
+                return to_route('client');
+            }
+        } else {
+            return to_route('loginn')->with('messages', 'Account has not been registered');
         }
-
-        // return to_route('Dash');
     }
+
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return to_route('loginn');
+    }
+
+    public function showUser(){
+        $user = User::where('role_id', 2)->where('status', 'active')->get();
+        return Inertia::render("");
+    }
+
+    public function newUser(){
+        $user = User::where('role_id', 2)->where('status', 'inactive')->get();
+        return Inertia::render('');
+    }
+    
+    public function approve($id){
+        $user = User::where('id', $id)->first();
+        $user['status'] = 'active';
+        $user->save();
+
+        return redirect()->back();
+    }
+    
+    public function destroy($id){
+        $user = User::where('id', $id)->first();
+        $user->delete();
+        return redirect('')->back();
+    }
+
+
+
 }

@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.sidebar.active{
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    transition: 400ms ease;
+}
+
+.sidebar.inactive{
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-20px);
+    transition: 400ms ease;
+}
+
 .addButton{
     /* display: none; */
     opacity: 0;
@@ -26,9 +40,17 @@
     margin: auto;
     transition: 0.2s ease-in-out;
 }
- /* .active{
-    border-bottom: 1px solid blue;
-} */
+
+.switches-response::after {
+    left: 0;
+}
+
+/* CSS untuk posisi after pada tombol chart */
+.switches-chart::after {
+    left: 40%;
+    transform: translateX(-50%);
+}
+
 
 
 .switch.active::after{

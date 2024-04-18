@@ -18,7 +18,8 @@ const Response = ({props, submit, setAnswers}) => {
                 return (
                     <input
                         type="text"
-                        className='mt-6 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+                        className='mt-6 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 
+                        appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'
                         onChange={(e) => handleTextChange(e, questionIndex, typeQuest)}
                     />
                 );
@@ -110,35 +111,26 @@ const Response = ({props, submit, setAnswers}) => {
 
   return (
     <>
-            <div>
-                <div className='questionForm '>
-                    <br />
-                    <div className=''>
-                        <div >
-                            <div className='title'>
-                                <div className='formTop mb-4 bg-white border-t-8 border-form rounded-lg py-[20px] px-[25px]'>
-                                    <p className="questionTopName box-border text-[32px] font-semibold leading-[40px] w-full border-none outline-none text-black h-[35px] placeholder-gray-400">{props.form.title}</p>
-                                    <p className='questionTopdesc box-border mt-5 text-[13px] leading-[40px] w-full border-none outline-none border-b border-[#F4F4F9] h-10'>{props.form.desc}</p>
-                                </div>
-                                {questions.map((question, questionIndex) => (
-                                    <div className='mb-4' key={questionIndex}>
-                                        <div className='formTop bg-white border-t-8 border-form rounded-lg py-[20px] px-[25px]'>
-                                            <div className='flex gap-2'>
-                                                <div className="relative z-0 basis-2/3">
-                                                <p className="questionTopName box-border text-[20px] font-medium leading-[40px] w-full text-gray-900">{questionIndex + 1}. {question.question} 
-                                                    {question.required && <span className='text-red-900'>*</span>} </p>
-                                                    {renderInput(question.selectedType, question.answers.map(answer => answer.option), questionIndex)}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                    
-                        </div>
+ 
+         <div className='title sm:px-20 md:px-80 px-10'>
+             <div className='formTop mb-4 bg-white border-t-8 border-form rounded-lg py-[20px] px-[25px]'>
+                <p className="questionTopName box-border text-[32px] font-semibold leading-[40px] w-full border-none outline-none text-black h-[35px] placeholder-gray-400">{props.form.title}</p>
+                <p className='questionTopdesc box-border mt-5 text-[13px] leading-[40px] w-full border-none outline-none border-b border-[#F4F4F9] h-10'>{props.form.desc}</p>
+            </div>
+            {questions.map((question, questionIndex) => (
+                <div className='mb-4' key={questionIndex}>
+                    <div className='formTop bg-white border-t-8 border-form rounded-lg py-[20px] px-[25px]'>
+                            <p className="questionTopName box-border text-[20px] font-medium leading-[40px] w-full text-gray-900">{questionIndex + 1}. {question.question} 
+                                {question.required && <span className='text-red-900'>*</span>} </p>
+                                {renderInput(question.selectedType, question.answers.map(answer => answer.option), 
+                                questionIndex)}
                     </div>
                 </div>
-            </div>
+            ))}
+            
+        </div>
+
+
         </>
   )
 }

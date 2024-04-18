@@ -7,9 +7,7 @@ import '../../../css/switch.css';
 import Select from 'react-select';
 
 
-
-
-const QuestionForm = ({
+const ResponseEdit = ({
     questionData,
     index,
     handleInputChange,
@@ -22,11 +20,11 @@ const QuestionForm = ({
     handleCopyQuestion,
     handleRequiredChange,
     DropdownLinks
-  }) => {
-
-
-  return (
-    <div className='question mb-4'>
+}) => {
+// console.log( 'ini question data',questionData)
+    
+return (
+    <div className='question mb-4 sm:px-20 md:px-80 px-10'>
     <div className='group relative formTop bg-white  border-t-8 border-form rounded-lg pt-[20px] px-[25px] pb-[5px] hover:transition-all hover:duration-800 hover:ease-in-out hover:pb-[10px]'>
       <div className='flex gap-2'>
         <div className="relative z-0 basis-2/3">
@@ -64,77 +62,71 @@ const QuestionForm = ({
       </div>
       
       {/* Bagian yang menangani opsi jawabannya */}
-      {questionData.answers.map((answer, answerIndex) => (
-        <div key={answerIndex}>
-            {questionData.selectedType === 'text' && (
-                <>
-                    <div className=' mt-4 border-dotted border-b-2 border-form text-gray-300'>long paragraph</div>
-                    <div className=' mt-4 border-dotted border-b-2 border-form text-gray-500'></div>
-                </>
-            )}
-            {questionData.selectedType === 'checkbox' && (
-                <div className=' flex mt-2 flex-row items-center'>
-                    <div className='basis-1/12'>
-                        <div className='border border-gray-500 h-[18px] w-[18px]'></div>
-                    </div>
-                    <input 
-                        type="text" 
-                        name={`option-${index}-${answerIndex}`} 
-                        value={answer.option}
-                        onChange={e => handleOptionChange(e, index, answerIndex)} 
-                        className="basis-10/12 block w-full ml-2 py-1 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none 
-                        focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    />
+      {questionData && questionData.answers && questionData.answers.map((answer, answerIndex) => (
+         <div key={answerIndex}>
+         {questionData.selectedType === 'text' && (
+             <>
+                 <div className=' mt-4 border-dotted border-b-2 border-form text-gray-300'>long paragraph</div>
+                 <div className=' mt-4 border-dotted border-b-2 border-form text-gray-500'></div>
+             </>
+         )}
+         {questionData.selectedType === 'checkbox' && (
+             <div className=' flex mt-2 flex-row items-center'>
+                 <div className='basis-1/12'>
+                     <div className='border border-gray-500 h-[18px] w-[18px]'></div>
+                 </div>
+                 <input 
+                     type="text" 
+                     name={`option-${index}-${answerIndex}`} 
+                     value={answer.option}
+                     onChange={e => handleOptionChange(e, index, answerIndex)} 
+                     className="basis-10/12 block w-full ml-2 py-1 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none 
+                     focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                 />
 
-                    {questionData.answers.length > 0 && (
-                        <button className=' hover:bg-text rounded-full p-1 absolute right-2' 
-                        onClick={() => handleRemoveAnswer(index, answerIndex)}>
-                            <IoIosClose className='text-[26px] text-gray-600' />
-                        </button>
-                    )}  
-                </div>
-            )}
-            {questionData.selectedType === 'multiple_choice' && (
-                <>
-                    <div className=' flex mt-2 flex-row items-center relative'>
-                        <div className='basis-1/12'>
-                            <div className='border border-gray-500 h-[18px] w-[18px] rounded-full'></div>
-                        </div>
-                        <input 
-                            type="text" 
-                            name={`option-${index}-${answerIndex}`} 
-                            value={answer.option}
-                            onChange={e => handleOptionChange(e, index, answerIndex)} 
-                            className=" basis-10/12 w-full ml-2 py-1 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none 
-                            focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        />   
-                        {/* <label htmlFor="" className=' relative flex justify-center content-center hover:bg-text rounded-full mr-10 p-2 cursor-pointer  opacity-0'>
-                            <button className='  '>
-                                <TbPhoto className='text-[24px] text-gray-500 ' />
-                            </button>
-                            <input type="file" className='cursor-pointer w-[28px] h-[24px]  opacity-0 absolute left-0' />
-                        </label> */}
-                        {questionData.answers.length > 0 && (
-                            <button className=' hover:bg-text rounded-full p-1 absolute right-2' 
-                            onClick={() => handleRemoveAnswer(index, answerIndex)}>
-                                <IoIosClose className='text-[26px] text-gray-600' />
-                            </button>
-                        )}                                              
-                    </div>
-                
-                </>
-            )}
-            <div className=' addButton absolute -right-[80px] top-1/2 -translate-y-1/2  h-full w-20 grid content-center justify-end '>
-                <button
-                    className=' bg-white shadow-md rounded-full hover:bg-gray-300  '
-                    onClick={() => handleAddClick(index)} 
-                    data-index={index}
-                >
-                    <CiCirclePlus className='text-[35px] m-2' />
-                </button>
-            </div>
+                 {questionData.answers.length > 0 && (
+                     <button className=' hover:bg-text rounded-full p-1 absolute right-2' 
+                     onClick={() => handleRemoveAnswer(index, answerIndex)}>
+                         <IoIosClose className='text-[26px] text-gray-600' />
+                     </button>
+                 )}  
+             </div>
+         )}
+         {questionData.selectedType === 'multiple_choice' && (
+             <>
+                 <div className=' flex mt-2 flex-row items-center relative'>
+                     <div className='basis-1/12'>
+                         <div className='border border-gray-500 h-[18px] w-[18px] rounded-full'></div>
+                     </div>
+                     <input 
+                         type="text" 
+                         name={`option-${index}-${answerIndex}`} 
+                         value={answer.option}
+                         onChange={e => handleOptionChange(e, index, answerIndex)} 
+                         className=" basis-10/12 w-full ml-2 py-1 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none 
+                         focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                     />   
+                     {questionData.answers.length > 0 && (
+                         <button className=' hover:bg-text rounded-full p-1 absolute right-2' 
+                         onClick={() => handleRemoveAnswer(index, answerIndex)}>
+                             <IoIosClose className='text-[26px] text-gray-600' />
+                         </button>
+                     )}                                              
+                 </div>
+             
+             </>
+         )}
+         <div className=' addButton absolute -right-[80px] top-1/2 -translate-y-1/2  h-full w-20 grid content-center justify-end '>
+             <button
+                 className=' bg-white shadow-md rounded-full hover:bg-gray-300  '
+                 onClick={() => handleAddClick(index)} 
+                 data-index={index}
+             >
+                 <CiCirclePlus className='text-[35px] m-2' />
+             </button>
+         </div>
 
-        </div>
+     </div>
     ))}
 
       {questionData.selectedType !== '' && questionData.selectedType !== 'text' && (
@@ -171,4 +163,4 @@ const QuestionForm = ({
 );
 }
 
-export default QuestionForm
+export default ResponseEdit

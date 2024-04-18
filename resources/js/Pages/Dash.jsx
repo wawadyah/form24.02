@@ -4,8 +4,9 @@ import React from 'react'
 
 
 const Dash = (props) => {
-    console.log(props.uuid);
-    console.log(props.forms)
+    console.log(props.auth)
+    // console.log(props.uuid);
+    // console.log(props.forms)
   return (
     <div>
         <Header />

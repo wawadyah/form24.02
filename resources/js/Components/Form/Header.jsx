@@ -1,11 +1,11 @@
 import { IoMenu, IoSearch } from "react-icons/io5";
 import profile from '../../../../public/images/killua.png'
 
-const Header = () => {
+const Header = ({ sidebar, setSidebar }) => {
 return(
     <div className="bg-text2 pt-4 px-2 pb-8 shadow-md flex flex-wrap gap-4">
-        <div className="rightSection bg-red-100 basis-1/5 flex items-center">
-            <IoMenu className="text-[35px] mr-4" />
+        <div className="rightSection bg-red-100 basis-1/5 flex items-center" onClick={()=>(setSidebar(!sidebar))}>
+            <IoMenu className="text-[35px] mr-4 hover:bg-gray-100" />
             <span className="text-gray-500 font-semi text-[20px]">Formulir</span>
         </div>
 

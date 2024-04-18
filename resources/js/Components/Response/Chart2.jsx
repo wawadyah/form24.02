@@ -8,14 +8,16 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import FormTimer from './FormTimer';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Chart2 = ({ props }) => {
+const Chart2 = ({ props, submit }) => {
     const questions = props.form.question;
 
     return (
-        <>
+        <div className=' sm:px-20 md:px-80 px-10'>
+            <FormTimer />
             {questions.map((question, index) => {
 
                 const filteredAnswers = props.answers.filter(answerObj => {
@@ -76,7 +78,11 @@ const Chart2 = ({ props }) => {
                     </div>
                 );
             })}
-        </>
+
+            {/* <button className='bg-primary rounded-md px-6 py-2 text-[15px] text-white text-semibold' 
+                onClick={submit}>Submit
+            </button> */}
+        </div>
     );
 };
 

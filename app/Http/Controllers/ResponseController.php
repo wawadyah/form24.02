@@ -19,11 +19,9 @@ class ResponseController extends Controller
         return Inertia::render('FormTest', ['form' => $form, 'answers' => $soal]);
     }
 
+   
+
     public function store( Request $request){
-        
-        $validatedData = $request->validate([
-            'answer' => 'required',
-        ]);
 
         $response = new Response();
         $data = array(
@@ -32,11 +30,17 @@ class ResponseController extends Controller
         );
         $response->create($data);
 
-        return redirect()->route('Dash');
+        $formDate = Form::where('id', $request->input('form_id'))->first();
+        if ($formDate) {
+            $formDate->save();
+        }
+
+
+        return redirect()->route('client');
     }
 
-    // public function response(){
-    //     $response = Response::all();
-    //     return Inertia::render('FormResponse', ['responses' => $response]);
-    // }
+    public function response(){
+        $response = Response::all();
+         return Inertia::render('FormResponse', ['responses' => $response]);
+    }
 }
